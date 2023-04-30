@@ -1,0 +1,21 @@
+Step 1) is to create a new repository
+https://github.com/VijayTestArch/SimpliJavaProject
+https://github.com/andreaskolokotronis/SimpliJavaProject
+Step 2) The first step is to give the command "Git init" - the use of this commmand is to initiate the pull or push request to the repository
+Step 3) Command - git remote add origin https://github.com/VijayTestArch/SimpliJavaProject
+Step 4) Command - git add * 
+This command adds all the files into the reposistory
+Step 5) Command - git status
+This command is to check if the files are ready to be moved
+Step 6) git commit - m "adding the files to repo"
+Step 7) git push origin master 
+
+
+
+
+
+
+
+
+
+

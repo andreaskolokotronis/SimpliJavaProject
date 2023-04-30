@@ -1,0 +1,197 @@
+mysql -u root -p
+
+create database amazon_db;
+
+use amazon_db;
+
+create table products_mobile(
+id int NOT NULL AUTO_INCREMENT Primary key,
+name varchar(50) NOT NULL,
+price varchar(50) NOT NULL);
+
+desc products_mobile;
+
+alter table products_mobile add quantity int NOT NULL;
+
+alter table products_mobile add location varchar(100) NOT NULL
+after quantity, 
+add dom int(100) NOT NULL;
+
+alter table products_mobile drop column dom;
+
+insert into products_mobile(name,price,quantity,location)
+values
+('OnePlusNord','18000',100,'Delhi');
+
+Select * from products_mobile;
+
+insert into products_mobile(name,price,quantity,location)
+values
+('OnePlusNord','18000',100,'Delhi'),
+('iPhone11','50000',100,'Bangalore'),
+('SamsungGalaxy','18000',100,'Chennai'),
+('Nokia','18000',100,'Kerala');
+
+update products_mobile set name=replace(name,'OnePlusNord','OnePlusX')
+where id='2';
+
+update products_mobile set price='25000'
+where name='OnePlusX';
+
+delete from products_mobile where id=2;
+
+drop table products_mobile;
+
+create table products_mobile(
+id int NOT NULL AUTO_INCREMENT Primary key,
+name varchar(50) NOT NULL,
+price varchar(50) NOT NULL,
+location varchar(50) NOT NULL);
+
+create table products_laptop(
+id int NOT NULL AUTO_INCREMENT Primary key,
+name varchar(50) NOT NULL,
+price varchar(50) NOT NULL,
+location varchar(50) NOT NULL);
+
+
+insert into products_mobile(name,price,location)
+values
+('OnePlusNord','18000','Delhi'),('iPhone11','50000','Bangalore')
+,('SamsungGalaxy',1000,'Chennai'),('Nokia','18000','Kerala');
+
+
+
+insert into products_laptop(name,price,location)
+values
+('Dell','18000','Delhi'),('HP','50000','Bangalore')
+,('Lenova',1000,'Chennai'),('Samsung','18000','Kerala');
+
+
+insert into products_mobile(name,price,location)
+values
+('OnePlusX','18000','Pune');
+
+select products_mobile.name,products_mobile.price 
+from products_mobile
+inner join products_laptop 
+on products_mobile.location = products_laptop.location;
+
+select products_mobile.name,products_mobile.price 
+from products_mobile
+left join products_laptop 
+on products_mobile.location = products_laptop.location;
+
+select products_mobile.name,products_mobile.price 
+from products_mobile
+right join products_laptop 
+on products_mobile.location = products_laptop.location;
+
+insert into products_laptop(name,price,location)
+values
+('iMac','18000','Gujarat'),('iMac pro','18000','Chennai');
+
+select name as 'Laptop Name' from products_laptop;
+
+
+DELIMITER && 
+create procedure ViewMobileDetails()
+BEGIN
+	select * from products_mobile;
+END &&
+DELIMITER;
+
+call ViewMobileDetails();
+
+select * from products_mobile where price=18000;
+
+
+DELIMITER &&
+create procedure ViewMobileDetailsWithPrice(IN var1 INT)
+BEGIN
+	select * from products_mobile where price =var1;
+END &&
+DELIMITER;
+
+select * from products_mobile where price =18000;
+
+select * from products_mobile where price ='18000';
+
+call ViewMobileDetailsWithPrice(18000);
+
+create table products (
+id int unsigned NOT NULL AUTO_INCREMENT,
+product_name varchar(50) DEFAULT NULL,
+stock int DEFAULT NULL,
+PRIMARY KEY(id)
+);
+
+create table products (
+id int unsigned NOT NULL AUTO_INCREMENT,
+product_name varchar(50) DEFAULT NULL,
+stock int DEFAULT NULL,
+PRIMARY KEY(id)
+);
+
+create table orders (
+id int unsigned NOT NULL AUTO_INCREMENT,
+product_id int unsigned NOT NULL,
+quantity int DEFAULT NULL,
+PRIMARY KEY(id),
+FOREIGN KEY(product_id) REFERENCES products(id)
+);
+
+Products - In Amazon we have adidas 5 shoes
+
+insert into products values (NULL,"Adidas Shoes",5);
+
+Now Payal is placing an order in Amazon with quantiy 10
+
+insert into orders values(NULL,1,10);
+
+Now Amazon has to minus the stock since Payal has placed the order
+
+update products set stock = stock -10 where id=1;
+
+select * from products;
+
+DROP TABLE orders;
+DROP TABLE products;
+
+create table products (
+id int unsigned NOT NULL AUTO_INCREMENT,
+product_name varchar(50) DEFAULT NULL,
+stock int unsigned DEFAULT NULL,
+PRIMARY KEY(id)
+);
+
+create table orders (
+id int unsigned NOT NULL AUTO_INCREMENT,
+product_id int unsigned NOT NULL,
+quantity int DEFAULT NULL,
+PRIMARY KEY(id),
+FOREIGN KEY(product_id) REFERENCES products(id)
+);
+
+insert into products values (NULL,"Adidas Shoes",5);
+insert into orders values(NULL,1,10);
+update products set stock = stock -10 where id=1;
+
+Start Transaction;
+insert into orders values(NULL,1,8);
+update products set stock = stock -8 where id=1;
+
+rollback;
+
+Postive scenario
+
+Staring a new transaction
+
+Start Transaction;
+insert into orders values(NULL,1,3);
+update products set stock = stock -3 where id=1;
+
+
+
+https://dev.mysql.com/downloads/connector/j/?os=26
+

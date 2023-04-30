@@ -1,0 +1,1 @@
+for JDBC add externa JAR the connector in downloads
